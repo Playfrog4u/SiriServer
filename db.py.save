@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cPickle
-import MySQLdb as mdb
+ mport MySQLdb
 from uuid import uuid4
 
 
@@ -29,7 +29,7 @@ def setup():
     conn.close()
 
 def getConnection():
-    return mdb.connect("localhost","root","password Goes here","googlesiri")
+    return MySQLdb.connect("localhost","root","baby","googlesiri")
 
 
 class Assistant(object):
