@@ -5,14 +5,46 @@
 from plugin import *
 
 class smalltalk(Plugin):
-    
+     
+     
+    @register("de-DE", "(.*Mein name.*)")
+    @register("en-US", "(.*My name.*)")
+    def st_my_name(self, speech, language):  
+        if language == 'de-DE':
+            self.say("Du heißt {0}.".format(self.user_name()).decode("utf-8"))
+        else:            
+            self.say("Your name is {0}. At least that's what you told me.".format(self.user_name()))
+        self.complete_request()   
+      
+    @register("de-DE", "(.*Fick.*)")
+    @register("en-US", "(.*Fuck.*)")
+    def st_fuck(self, speech, language):  
+        if language == 'de-DE':
+            self.say("Das ist nicht gut {0}!".format(self.user_name()))
+        else:            
+            self.say("Mind your language {0}!".format(self.user_name()))
+        self.complete_request()   
+        
+        
     @register("de-DE", "(.*Hallo.*)|(.*Hi.*Siri.*)")
     @register("en-US", "(.*Hello.*)|(.*Hi.*Siri.*)")
-    def st_hello(self, speech, language):
+    def st_hello(self, speech, language):  
         if language == 'de-DE':
-            self.say("Hallo.")
-        else:
-            self.say("Hello")
+            self.say("Hallo {0}".format(self.user_name()))
+        else:            
+            self.say("Hello {0}".format(self.user_name()))
+        self.complete_request()   
+
+    @register("de-DE", "Hi")
+    @register("en-US", "Hi")
+    @register("fr-FR", "Bonjour")
+    def hi(self, speech, language):
+        if language == 'de-DE':
+            self.say("Hi {0}".format(self.user_name()))
+        elif language == 'fr-FR':
+            self.say("Bonjour {0}".format(self.user_name()))
+        else:            
+            self.say("Hi there {0}".format(self.user_name()))
         self.complete_request()
 
     @register("de-DE", ".*Dein Name.*")
@@ -50,7 +82,7 @@ class smalltalk(Plugin):
         if language == 'de-DE':
             self.say("Nein Danke, ich stehe auf das schwarze iPhone von Deinem Kollegen.")            
         else:
-            self.say("No thank you, I'm in love with the black iPhone from you friend.")
+            self.say("No thank you, I'm in love with the black iPhone from your friend.")
         self.complete_request()
 
     @register("de-DE", ".*erzähl.*Witz.*")

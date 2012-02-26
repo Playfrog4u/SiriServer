@@ -1,44 +1,40 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import cPickle
+import cPickle,base64
 import MySQLdb as mdb
-from uuid import uuid4
+import uuid 
 
+__database__ = "mysql"
 
-__database__ = "database.sqlite3"
+__mysql_host__ = "localhost"
+__mysql_user__ = "root"
+__mysql_password__ = "pass"
+__mysql_database__ = "googlesiri"
+
 
 def setup():
     conn = getConnection()
     c = conn.cursor()
-    c.execute("""
-        CREATE TABLE IF NOT EXISTS `assistants` (
-  `id` int(255) unsigned NOT NULL AUTO_INCREMENT,
-  `assistantId` text NOT NULL,
-  `speechId` text NOT NULL,
-  `censorSpeech` text NOT NULL,
-  `timeZoneId` text NOT NULL,
-  `language` text NOT NULL,
-  `region` text NOT NULL,
-  `date_created` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-        """)
-    #conn.commit()
+    c.execute("""CREATE TABLE IF NOT EXISTS `assistants` (`id` int(255) unsigned NOT NULL AUTO_INCREMENT,`assistantId` text NOT NULL,`speechId` text NOT NULL,`censorSpeech` text NOT NULL,`timeZoneId` text NOT NULL,`language` text NOT NULL,`region` text NOT NULL,`firstName` text NOT NULL,`nickName` text NOT NULL,`date_created` datetime NOT NULL, PRIMARY KEY (`id`)) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;""")    
     c.close()
     conn.close()
 
 def getConnection():
-    return mdb.connect("localhost","root","password Goes here","googlesiri")
+    return mdb.connect(__mysql_host__, __mysql_user__, __mysql_password__, __mysql_database__, use_unicode=True)
 
 
 class Assistant(object):
-    def __init__(self, assistantId=str.upper(str(uuid4())),speechId=str.upper(str(uuid4()))):
-        self.assistantId = assistantId
-        self.speechId = speechId
+    def __init__(self):
+        self.assistantId = None
+        self.speechId= None    
         self.censorSpeech = None
         self.timeZoneId = None
         self.language = None
         self.region = None
 
+def adaptAssistant(assistant):
+    return base64.encodestring(cPickle.dumps(assistant))
 
+def convertAssistant(fromDB):
+    return cPickle.loads(base64.decodestring(fromDB))

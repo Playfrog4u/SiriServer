@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-#by Daniel "P4r4doX" Zatovic
+#by Daniel "P4r4doX" Zaťovič
 #Edited by boeaja
 
 from plugin import *
@@ -9,7 +9,7 @@ from xml.dom.minidom import parseString
 
 #You can choose your own BOT here : http://pandorabots.com/botmaster/en/~1ce90ef1ac87f6dc9dce531~/mostactive
 # EVE
-botID = "ae8206713e34cb2e"
+botID = "a9481f8c7e347656"
 
 # A.L.I.C.E
 #botID = "f5d922d97e345aa1"
@@ -59,6 +59,4 @@ class chatBOT(Plugin):
             answer = self.ask(u"Ok, Let's chat")
             respond(self, answer)
             #self.say(askBOT(speech))
-	    self.complete_request()
-
-   
+	    self.complete_request() 
