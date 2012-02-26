@@ -9,7 +9,7 @@ from xml.dom.minidom import parseString
 
 #You can choose your own BOT here : http://pandorabots.com/botmaster/en/~1ce90ef1ac87f6dc9dce531~/mostactive
 # EVE
-botID = "a9481f8c7e347656"
+botID = "ae8206713e34cb2e"
 
 # A.L.I.C.E
 #botID = "f5d922d97e345aa1"
