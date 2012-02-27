@@ -6,7 +6,7 @@ from siriObjects.websearchObjects import WebSearch
 
 class wwwSearch(Plugin):
     @register("de-DE", "(websuche.*)|(web suche.*)|(internetsuche.*)|(internet suche.*)|(web.*)|(internet.*)")
-    @register("en-US", "(web search.*)|(web.*)|(internet.*)|(internet search.*)")
+    @register("en-US", "(web search.*)|(web.*)|(internet.*)|(internet search.*)|(google.*)")
     def webSearch(self, speech, language):
         if (language == "en-US"):
             if (speech.find('Web search') == 0):
@@ -17,6 +17,8 @@ class wwwSearch(Plugin):
                 speech = speech.replace('Internet search',' ',1)
             elif (speech.find('Internet') == 0):
                 speech = speech.replace('Internet',' ',1)
+            elif (speech.find('Google') == 0):
+                speech = speech.replace('Google', ' ',1)
             speech = speech.strip()
             if speech == "":
                 speech = self.ask("What is your query?")
