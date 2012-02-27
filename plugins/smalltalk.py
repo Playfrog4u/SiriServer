@@ -5,7 +5,18 @@
 from plugin import *
 
 class smalltalk(Plugin):
-     
+    
+    @register("en-US", ".*who is tristen russ.*")
+    def whoistr(self, speech, language):
+        if language == 'en-US':
+            self.say("A 15 year old developer. Know as Playfrog4u")
+        self.complete_request()
+        
+    @register("en-US", ".*who made you.*")
+    def madeyou(self, speech, language):
+        if language == 'en-US':
+            self.say("Tristen Russ. Also the maker of The Big Bad Birds Siri Proxy!")
+        self.complete_request()
      
     @register("de-DE", "(.*Mein name.*)")
     @register("en-US", "(.*My name.*)")
