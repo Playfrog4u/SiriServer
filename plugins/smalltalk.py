@@ -7,7 +7,7 @@ from plugin import *
 class smalltalk(Plugin):
     
     @register("en-US", ".*who is tristen russ.*")
-    def whoistr(self, speech, language):
+    def whoistruss(self, speech, language):
         if language == 'en-US':
             self.say("A 15 year old developer. Know as Playfrog4u")
         self.complete_request()
