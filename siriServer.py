@@ -40,6 +40,9 @@ from sslDispatcher import ssl_dispatcher
 
 import signal, os
 
+reload(sys)
+sys.setdefaultencoding( "utf-8" )
+
 class HandleConnection(ssl_dispatcher):
     __not_recognized = {"de-DE": u"Entschuldigung, ich verstehe \"{0}\" nicht.", "en-US": u"Sorry, I don't understand {0}"}
     __websearch = {"de-DE": u"Websuche", "en-US": u"Websearch"}
@@ -346,13 +349,13 @@ class HandleConnection(ssl_dispatcher):
                         self.assistant.region = objProperties['region']
                         #Record the user firstName and nickName                    
                         try:                        
-                            self.assistant.firstName=objProperties["meCards"][0]["properties"]["firstName"]
+                            self.assistant.firstName=objProperties["meCards"][0]["properties"]["firstName"].encode("utf-8")
                         except KeyError:
-                            self.assistant.firstName=''                        
+                            self.assistant.firstName=u''                        
                         try:                        
-                            self.assistant.nickName=objProperties["meCards"][0]["properties"]["nickName"]       
+                            self.assistant.nickName=objProperties["meCards"][0]["properties"]["nickName"].encode("utf-8")       
                         except KeyError:
-                            self.assistant.nickName=''
+                            self.assistant.nickName=u''
                             
                         c = dbConnection.cursor(mdb.cursors.DictCursor)          
                         c.execute("UPDATE `assistants` set censorSpeech=%s,timeZoneId=%s,language=%s,region=%s,firstName=%s,nickName=%s  where assistantId = %s", (self.assistant.censorSpeech,self.assistant.timeZoneId, self.assistant.language,self.assistant.region,self.assistant.firstName,self.assistant.nickName,self.assistant.assistantId))
@@ -386,8 +389,8 @@ class HandleConnection(ssl_dispatcher):
                             self.assistant.language = result["language"]
                             self.assistant.region = result["region"]
                             #Load the user info
-                            self.assistant.firstName=result["firstName"]
-                            self.assistant.nickName=result["nickName"]
+                            self.assistant.firstName=result["firstName"]                           
+                            self.assistant.nickName=result["nickName"]                           
                             self.send_plist({"class": "AssistantLoaded", "properties": {"version": "20111216-32234-branches/telluride?cnxn=293552c2-8e11-4920-9131-5f5651ce244e", "requestSync":False, "dataAnchor":"removed"}, "aceId":str(uuid.uuid4()), "refId":reqObject['aceId'], "group":"com.apple.ace.system"})
                             
                 elif reqObject['class'] == 'DestroyAssistant':
