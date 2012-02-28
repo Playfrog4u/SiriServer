@@ -5,6 +5,33 @@
 from plugin import *
 
 class smalltalk(Plugin):
+        
+    @register("en-US", ".*are.*you.*epic.*")
+    def ruepic(self, speech, language):
+        if language == 'en-US':
+            self.say("Yes, because i'm the worlds most advanced virtual assistant.")
+        self.complete_request()
+        
+    @register("en-US", ".*I.*like.*kitties.*")
+    def TWSS(self, speech, language):
+        if language == 'en-US':
+            self.say("That's What She Said!")
+        self.complete_request()
+        
+    @register("en-US", ".*Hack.*nasa.*")
+    def hack(self, speech, language):
+        if language == 'en-US':
+            answer = self.ask(u"What would you like to send?")
+            answer = self.say(u"Ok I will send \"{0}\" to NASA".format(answer))
+            self.say(u"Downloading Files....")
+            self.say("Files Sent!")
+        self.complete_request()
+
+    @register("en-US", "(.*who's.*your.*daddy*)|(.*who.*is.*your.*daddy.*)|(.*hoosier.*daddy.*)")
+    def whourdaddy(self, speech, language):
+        if language == 'en-US':
+            self.say("You are, {0}!".format(self.user_name()))
+        self.complete_request()
     
     @register("en-US", ".*who is tristen russ.*")
     def whoistruss(self, speech, language):
@@ -145,7 +172,7 @@ class smalltalk(Plugin):
         else:
             answer = self.ask(u"Who's there?")
             answer = self.ask(u"\"{0}\" who?".format(answer))
-            self.say(u", I don't do knock knock jokes.")
+            self.say(u"I don't do knock knock jokes.")
         self.complete_request()
 
     @register("de-DE", ".*Antwort.*alle.*Fragen.*")

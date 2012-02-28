@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 #author: AlphaBetaPhi <beta@alphabeta.ca>
+#editor: Playfrog4u <Playfrog4u@hotmai.com>
 #todo: check for existing alarms, delete alarms, update alarms, add original commands aka wake me up/tomorrow morning/midnight/etc.
 #project: SiriServer
 #commands: set an alarm for HH:MM AM/PM
 #          set an alarm for HH AM/PM
 #          set an alarm for HH AM/PM <called/labeled/named> <[word 1] [word 2] [word 3]>
+#          wake me up ....
 #comments: feel free to email any comments/bug/updates
 
 
@@ -90,15 +92,15 @@ class alarmPlugin(Plugin):
         self.sendRequestWithoutAnswer(view)
         self.complete_request()
 
-    res = {
+    res2 = {
         'wake': {
             'en-US': '.*wake.* up at.* (0?[1-9]|1[012])([0-5]\d)?\s?([APap][mM])\s?(\bcalled|named|labeled\b)?\s?(([a-z0-9]{1,7}\s)?([a-z0-9]{1,7})\s?([a-z0-9]{1,7}))?'
         }
     }
 
-    @register("en-US", res['wake']['en-US'])
+    @register("en-US", res2['wake']['en-US'])
     def wake(self, speech, language):
-        alarmString = re.match(alarmPlugin.res['wake'][language], speech, re.IGNORECASE)
+        alarmString = re.match(alarmPlugin.res2['wake'][language], speech, re.IGNORECASE)
         
         alarmHour = int(alarmString.group(1))
         alarm24Hour = alarmHour
